@@ -1,3 +1,4 @@
+import { UUID } from 'crypto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,33 +16,65 @@ export class ModelsService {
     private readonly versionRepo: Repository<ModelVersion>,
   ) {}
 
-  async createModel(dto: CreateModelDto): Promise<ProcessModel> {
-    const model = this.modelRepo.create(dto);
+  async createModel(
+    dto: CreateModelDto,
+    userId: string,
+  ): Promise<ProcessModel> {
+    const model = this.modelRepo.create({
+      ...dto,
+      owner: { id: userId } as any,
+    });
+
     return this.modelRepo.save(model);
   }
 
-  async getModel(id: string): Promise<ProcessModel> {
-    const model = await this.modelRepo.findOne({ 
-      where: { id },
+  async getModel(id: string, userId: string): Promise<ProcessModel> {
+    const model = await this.modelRepo.findOne({
+      where: {
+        id,
+        owner: { id: userId as UUID },
+      },
       relations: ['versions'],
     });
+
     if (!model) throw new NotFoundException('Модель не найдена');
     return model;
   }
 
-  async createVersion(modelId: string, dto: CreateVersionDto): Promise<ModelVersion> {
-    const model = await this.modelRepo.findOne({ where: { id: modelId } });
+  async createVersion(
+    modelId: string,
+    dto: CreateVersionDto,
+    userId: string,
+  ): Promise<ModelVersion> {
+    const model = await this.modelRepo.findOne({
+      where: {
+        id: modelId,
+        owner: { id: userId as UUID },
+      },
+    });
+
     if (!model) throw new NotFoundException('Модель не найдена');
 
     const version = this.versionRepo.create({
       data: dto.data,
       model,
     });
+
     return this.versionRepo.save(version);
   }
 
-  async getVersions(modelId: string): Promise<ModelVersion[]> {
-    const model = await this.modelRepo.findOne({ where: { id: modelId }, relations: ['versions'] });
+  async getVersions(
+    modelId: string,
+    userId: string,
+  ): Promise<ModelVersion[]> {
+    const model = await this.modelRepo.findOne({
+      where: {
+        id: modelId,
+        owner: { id: userId as UUID },
+      },
+      relations: ['versions'],
+    });
+
     if (!model) throw new NotFoundException('Модель не найдена');
 
     return model.versions;

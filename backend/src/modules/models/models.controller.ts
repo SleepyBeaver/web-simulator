@@ -5,6 +5,8 @@ import {
   Param,
   Body,
   ParseUUIDPipe,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -13,14 +15,21 @@ import {
   ApiOkResponse,
   ApiNotFoundResponse,
   ApiParam,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
+
 import { ModelsService } from './models.service';
 import { ProcessModel } from '../../entities/process-model.entity';
 import { ModelVersion } from '../../entities/model-version.entity';
 import { CreateModelDto } from './dto/create-model.dto';
 import { CreateVersionDto } from './dto/create-version.dto';
 
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AuthRequest } from '../../auth/types';
+
 @ApiTags('Модели процессов')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('models')
 export class ModelsController {
   constructor(private readonly modelsService: ModelsService) {}
@@ -31,8 +40,11 @@ export class ModelsController {
     description: 'Модель успешно создана',
     type: ProcessModel,
   })
-  createModel(@Body() dto: CreateModelDto): Promise<ProcessModel> {
-    return this.modelsService.createModel(dto);
+  createModel(
+    @Body() dto: CreateModelDto,
+    @Req() req: AuthRequest,
+  ): Promise<ProcessModel> {
+    return this.modelsService.createModel(dto, req.user.sub);
   }
 
   @Get(':id')
@@ -45,8 +57,9 @@ export class ModelsController {
   @ApiNotFoundResponse({ description: 'Модель не найдена' })
   getModel(
     @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthRequest,
   ): Promise<ProcessModel> {
-    return this.modelsService.getModel(id);
+    return this.modelsService.getModel(id, req.user.sub);
   }
 
   @Post(':id/versions')
@@ -60,8 +73,9 @@ export class ModelsController {
   createVersion(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateVersionDto,
+    @Req() req: AuthRequest,
   ): Promise<ModelVersion> {
-    return this.modelsService.createVersion(id, dto);
+    return this.modelsService.createVersion(id, dto, req.user.sub);
   }
 
   @Get(':id/versions')
@@ -74,7 +88,8 @@ export class ModelsController {
   @ApiNotFoundResponse({ description: 'Модель не найдена' })
   getVersions(
     @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthRequest,
   ): Promise<ModelVersion[]> {
-    return this.modelsService.getVersions(id);
+    return this.modelsService.getVersions(id, req.user.sub);
   }
 }

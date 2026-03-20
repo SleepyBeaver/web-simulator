@@ -1,13 +1,11 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 import {
-  IsDate,
   IsEmail,
   IsOptional,
   IsString,
@@ -20,6 +18,7 @@ import { Exclude } from 'class-transformer';
 import { UUID } from 'crypto';
 import { UserRole } from '../enums/roles.enum';
 import { ApiProperty, ApiExtraModels } from '@nestjs/swagger';
+import { ProcessModel } from './process-model.entity';
 
 @ApiExtraModels()
 @Entity({
@@ -30,43 +29,23 @@ export class User {
   @IsUUID()
   @ApiProperty({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'Уникальный идентификатор пользователя',
   })
   id: UUID;
 
-  @Column({
-    type: 'varchar',
-    nullable: false,
-  })
+  @Column({ type: 'varchar' })
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @ApiProperty({
-    example: 'Иван Иванов',
-    description: 'Имя пользователя',
-    minLength: 2,
-    maxLength: 50,
-  })
+  @ApiProperty({ example: 'Иван Иванов' })
   name: string;
 
-  @Column({
-    type: 'varchar',
-    unique: true,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', unique: true })
   @IsEmail()
-  @ApiProperty({
-    example: 'user@example.com',
-    description: 'Email пользователя',
-    format: 'email',
-  })
+  @ApiProperty({ example: 'user@example.com' })
   email: string;
 
   @Exclude()
-  @Column({
-    type: 'varchar',
-    nullable: false,
-  })
+  @Column({ type: 'varchar' })
   @IsString()
   @MinLength(6)
   password: string;
@@ -75,31 +54,22 @@ export class User {
     type: 'enum',
     enum: UserRole,
     default: UserRole.USER,
-    nullable: false,
   })
-  @ApiProperty({
-    enum: UserRole,
-    example: UserRole.USER,
-    description: 'Роль пользователя в системе',
-  })
+  @ApiProperty({ enum: UserRole })
   role: UserRole;
 
   @Column({
-    type: 'boolean', 
-    default: false
-  })
-  @ApiProperty({
-    example: true,
-    description: 'Согласие на обработку персональных данных'
+    type: 'boolean',
+    default: false,
   })
   consent: boolean;
 
   @Exclude()
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
+  @Column({ type: 'varchar', nullable: true })
   @IsString()
   @IsOptional()
   refreshToken: string;
+
+  @OneToMany(() => ProcessModel, (model) => model.owner)
+  models: ProcessModel[];
 }

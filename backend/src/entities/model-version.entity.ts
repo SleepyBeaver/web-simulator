@@ -7,7 +7,7 @@ export class ModelVersion {
   id: string;
 
   @Column({ type: 'json' })
-  data: any; // JSON-схема модели
+  data: any;
 
   @ManyToOne(() => ProcessModel, (model) => model.versions)
   model: ProcessModel;
