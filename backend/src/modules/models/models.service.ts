@@ -16,15 +16,11 @@ export class ModelsService {
     private readonly versionRepo: Repository<ModelVersion>,
   ) {}
 
-  async createModel(
-    dto: CreateModelDto,
-    userId: string,
-  ): Promise<ProcessModel> {
+  async createModel(dto: CreateModelDto, user: any): Promise<ProcessModel> {
     const model = this.modelRepo.create({
       ...dto,
-      owner: { id: userId } as any,
+      owner: user, // передаём полноценный объект User
     });
-
     return this.modelRepo.save(model);
   }
 
@@ -34,7 +30,7 @@ export class ModelsService {
         id,
         owner: { id: userId as UUID },
       },
-      relations: ['versions'],
+      relations: ['versions', 'activeVersion'],
     });
 
     if (!model) throw new NotFoundException('Модель не найдена');
@@ -47,20 +43,37 @@ export class ModelsService {
     userId: string,
   ): Promise<ModelVersion> {
     const model = await this.modelRepo.findOne({
-      where: {
-        id: modelId,
-        owner: { id: userId as UUID },
-      },
+      where: { id: modelId, owner: { id: userId as UUID } },
     });
 
     if (!model) throw new NotFoundException('Модель не найдена');
 
+    const maxVersion = await this.versionRepo
+      .createQueryBuilder('v')
+      .select('MAX(v.versionNumber)', 'max')
+      .where('v.modelId = :modelId', { modelId })
+      .getRawOne()
+      .then((res) => res?.max ?? 0);
+
     const version = this.versionRepo.create({
       data: dto.data,
-      model,
+      modelId,           // используем явный FK, не объект model
+      versionNumber: Number(maxVersion) + 1,
     });
 
-    return this.versionRepo.save(version);
+    const savedVersion = await this.versionRepo.save(version);
+
+    // Обновляем activeVersion без cascade через queryBuilder
+    if (!model.activeVersionId) {
+      await this.modelRepo
+        .createQueryBuilder()
+        .update()
+        .set({ activeVersion: savedVersion })
+        .where('id = :id', { id: modelId })
+        .execute();
+    }
+
+    return savedVersion;
   }
 
   async getVersions(
@@ -68,15 +81,14 @@ export class ModelsService {
     userId: string,
   ): Promise<ModelVersion[]> {
     const model = await this.modelRepo.findOne({
-      where: {
-        id: modelId,
-        owner: { id: userId as UUID },
-      },
-      relations: ['versions'],
+      where: { id: modelId, owner: { id: userId as UUID } },
     });
 
     if (!model) throw new NotFoundException('Модель не найдена');
 
-    return model.versions;
+    return this.versionRepo.find({
+      where: { modelId },
+      order: { versionNumber: 'ASC' },
+    });
   }
 }

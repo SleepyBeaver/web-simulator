@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 import { ModelVersion } from './model-version.entity';
 import { User } from './user.entity';
 
@@ -22,8 +16,13 @@ export class ProcessModel {
   @ManyToOne(() => User, (user) => user.models, { eager: true })
   owner: User;
 
-  @OneToMany(() => ModelVersion, (version) => version.model, {
-    cascade: true,
-  })
+  @OneToMany(() => ModelVersion, (version) => version.model, { cascade: false }) // cascade убрали
   versions: ModelVersion[];
+
+  @OneToOne(() => ModelVersion, { nullable: true, eager: false })
+  @JoinColumn()
+  activeVersion?: ModelVersion;
+
+  @Column({ type: 'uuid', nullable: true })
+  activeVersionId?: string;
 }
