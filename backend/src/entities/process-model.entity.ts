@@ -16,7 +16,7 @@ export class ProcessModel {
   @ManyToOne(() => User, (user) => user.models, { eager: true })
   owner: User;
 
-  @OneToMany(() => ModelVersion, (version) => version.model, { cascade: false }) // cascade убрали
+  @OneToMany(() => ModelVersion, (version) => version.model, { cascade: false })
   versions: ModelVersion[];
 
   @OneToOne(() => ModelVersion, { nullable: true, eager: false })

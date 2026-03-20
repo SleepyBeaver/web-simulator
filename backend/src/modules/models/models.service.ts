@@ -19,7 +19,7 @@ export class ModelsService {
   async createModel(dto: CreateModelDto, user: any): Promise<ProcessModel> {
     const model = this.modelRepo.create({
       ...dto,
-      owner: user, // передаём полноценный объект User
+      owner: user,
     });
     return this.modelRepo.save(model);
   }
@@ -57,13 +57,12 @@ export class ModelsService {
 
     const version = this.versionRepo.create({
       data: dto.data,
-      modelId,           // используем явный FK, не объект model
+      modelId,
       versionNumber: Number(maxVersion) + 1,
     });
 
     const savedVersion = await this.versionRepo.save(version);
 
-    // Обновляем activeVersion без cascade через queryBuilder
     if (!model.activeVersionId) {
       await this.modelRepo
         .createQueryBuilder()

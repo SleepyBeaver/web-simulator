@@ -12,6 +12,7 @@ import { JwtModule, JwtSignOptions } from '@nestjs/jwt';
 import { wsConfig } from './config/ws.config';
 import { LoggingMiddleware } from './logger/logging.middleware';
 import { ModelsModule } from './modules/models/models.module';
+import { SimulationModule } from './modules/simulation/simulation.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ModelsModule } from './modules/models/models.module';
     UsersModule,
     AuthModule,
     ModelsModule,
+    SimulationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

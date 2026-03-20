@@ -21,4 +21,7 @@ export class ModelVersion {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column({ type: 'boolean', default: true })
+  isValid: boolean;
 }

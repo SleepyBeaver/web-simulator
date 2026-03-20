@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { IJwtConfig } from 'src/config/types';
 import { Request } from 'express';
-import { UserPayload } from './roles.guard'; // Импортируем тип Request из express
+import { UserPayload } from './roles.guard';
 import { jwtConfig as jwt } from '../../config/jwt.config';
 
 export interface RequestWithUser extends Request {
