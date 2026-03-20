@@ -9,6 +9,7 @@ import {
   Req,
   Patch,
   Delete,
+  Res,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -19,6 +20,7 @@ import {
   ApiParam,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import { Response as ExpressResponse } from 'express';
 
 import { ModelsService } from './models.service';
 import { ProcessModel } from '../../entities/process-model.entity';
@@ -29,6 +31,8 @@ import { CreateVersionDto } from './dto/create-version.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AuthRequest } from '../../auth/types';
 import { UpdateModelDto } from './dto/update-model.dto';
+import { ImportJsonDto } from './dto/import-json.dto';
+import { ImportXmlDto } from './dto/import-xml.dto';
 
 @ApiTags('Модели процессов')
 @ApiBearerAuth()
@@ -124,5 +128,63 @@ export class ModelsController {
     @Req() req: AuthRequest,
   ): Promise<{ message: string }> {
     return this.modelsService.deleteModel(id, req.user.sub);
+  }
+
+  @Get(':id/export/json')
+  @ApiOperation({ summary: 'Экспорт модели в JSON' })
+  @ApiParam({ name: 'id', description: 'UUID модели' })
+  @ApiOkResponse({
+    description: 'JSON экспорт модели',
+  })
+  @ApiNotFoundResponse({ description: 'Модель не найдена' })
+  async exportJson(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthRequest,
+  ) {
+    return this.modelsService.exportModelJson(id, req.user.sub);
+  }
+
+  @Get(':id/export/xml')
+  @ApiOperation({ summary: 'Экспорт модели в XML' })
+  @ApiParam({ name: 'id', description: 'UUID модели' })
+  @ApiOkResponse({
+    description: 'XML экспорт модели',
+  })
+  @ApiNotFoundResponse({ description: 'Модель не найдена' })
+  async exportXml(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthRequest,
+    @Res() res: ExpressResponse,
+  ) {
+    const xml = await this.modelsService.exportModelXml(id, req.user.sub);
+
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(xml);
+  }
+  
+  @Post('import/json')
+  @ApiOperation({ summary: 'Импорт модели из JSON' })
+  @ApiCreatedResponse({
+    description: 'Модель успешно импортирована',
+    type: ProcessModel,
+  })
+  async importJson(
+    @Body() dto: ImportJsonDto,
+    @Req() req: AuthRequest,
+  ): Promise<ProcessModel> {
+    return this.modelsService.importModelJson(dto, req.user.sub);
+  }
+
+  @Post('import/xml')
+  @ApiOperation({ summary: 'Импорт модели из XML' })
+  @ApiCreatedResponse({
+    description: 'Модель успешно импортирована',
+    type: ProcessModel,
+  })
+  async importXml(
+    @Body() dto: ImportXmlDto,
+    @Req() req: AuthRequest,
+  ): Promise<ProcessModel> {
+    return this.modelsService.importModelXml(dto.xml, req.user.sub);
   }
 }

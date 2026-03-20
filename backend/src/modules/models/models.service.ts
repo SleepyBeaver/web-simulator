@@ -7,6 +7,7 @@ import { ModelVersion } from '../../entities/model-version.entity';
 import { CreateModelDto } from './dto/create-model.dto';
 import { CreateVersionDto } from './dto/create-version.dto';
 import { UpdateModelDto } from './dto/update-model.dto';
+import { ImportJsonDto } from './dto/import-json.dto';
 
 @Injectable()
 export class ModelsService {
@@ -118,5 +119,97 @@ export class ModelsService {
     await this.modelRepo.remove(model);
 
     return { message: 'Модель успешно удалена' };
+  }
+
+  async exportModelJson(id: string, userId: string): Promise<any> {
+    const model = await this.modelRepo.findOne({
+      where: { id, owner: { id: userId as UUID } },
+      relations: ['versions', 'activeVersion'],
+    });
+
+    if (!model) throw new NotFoundException('Модель не найдена');
+
+    return {
+      id: model.id,
+      name: model.name,
+      description: model.description,
+      activeVersion: model.activeVersion,
+      versions: model.versions,
+    };
+  }
+
+  async exportModelXml(id: string, userId: string): Promise<string> {
+    const model = await this.modelRepo.findOne({
+      where: { id, owner: { id: userId as UUID } },
+      relations: ['activeVersion'],
+    });
+
+    if (!model) throw new NotFoundException('Модель не найдена');
+
+    return `
+      <processModel>
+        <id>${model.id}</id>
+        <name>${model.name}</name>
+        <description>${model.description ?? ''}</description>
+        <activeVersion>
+          <id>${model.activeVersion?.id ?? ''}</id>
+        </activeVersion>
+      </processModel>
+      `.trim();
+  }
+
+  async importModelJson(
+    dto: ImportJsonDto,
+    userId: string,
+  ): Promise<ProcessModel> {
+    const model = this.modelRepo.create({
+      name: dto.name,
+      description: dto.description,
+      owner: { id: userId } as any,
+    });
+
+    const savedModel = await this.modelRepo.save(model);
+
+    const version = this.versionRepo.create({
+      data: dto.data,
+      modelId: savedModel.id,
+      versionNumber: 1,
+    });
+
+    const savedVersion = await this.versionRepo.save(version);
+
+    await this.modelRepo.update(savedModel.id, {
+      activeVersion: savedVersion,
+    });
+
+    return savedModel;
+  }
+
+  async importModelXml(
+    xml: string,
+    userId: string,
+  ): Promise<ProcessModel> {
+
+    const model = this.modelRepo.create({
+      name: 'Импорт из XML',
+      description: 'Создано из XML',
+      owner: { id: userId } as any,
+    });
+
+    const savedModel = await this.modelRepo.save(model);
+
+    const version = this.versionRepo.create({
+      data: { rawXml: xml },
+      modelId: savedModel.id,
+      versionNumber: 1,
+    });
+
+    const savedVersion = await this.versionRepo.save(version);
+
+    await this.modelRepo.update(savedModel.id, {
+      activeVersion: savedVersion,
+    });
+
+    return savedModel;
   }
 }
