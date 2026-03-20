@@ -7,6 +7,8 @@ import {
   ParseUUIDPipe,
   UseGuards,
   Req,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -26,6 +28,7 @@ import { CreateVersionDto } from './dto/create-version.dto';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AuthRequest } from '../../auth/types';
+import { UpdateModelDto } from './dto/update-model.dto';
 
 @ApiTags('Модели процессов')
 @ApiBearerAuth()
@@ -91,5 +94,35 @@ export class ModelsController {
     @Req() req: AuthRequest,
   ): Promise<ModelVersion[]> {
     return this.modelsService.getVersions(id, req.user.sub);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Обновить модель бизнес-процесса' })
+  @ApiParam({ name: 'id', description: 'UUID модели' })
+  @ApiOkResponse({
+    description: 'Модель успешно обновлена',
+    type: ProcessModel,
+  })
+  @ApiNotFoundResponse({ description: 'Модель не найдена' })
+  updateModel(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdateModelDto,
+    @Req() req: AuthRequest,
+  ): Promise<ProcessModel> {
+    return this.modelsService.updateModel(id, dto, req.user.sub);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Удалить модель бизнес-процесса' })
+  @ApiParam({ name: 'id', description: 'UUID модели' })
+  @ApiOkResponse({
+    description: 'Модель успешно удалена',
+  })
+  @ApiNotFoundResponse({ description: 'Модель не найдена' })
+  deleteModel(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthRequest,
+  ): Promise<{ message: string }> {
+    return this.modelsService.deleteModel(id, req.user.sub);
   }
 }

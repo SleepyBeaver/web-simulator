@@ -6,6 +6,7 @@ import { ProcessModel } from '../../entities/process-model.entity';
 import { ModelVersion } from '../../entities/model-version.entity';
 import { CreateModelDto } from './dto/create-model.dto';
 import { CreateVersionDto } from './dto/create-version.dto';
+import { UpdateModelDto } from './dto/update-model.dto';
 
 @Injectable()
 export class ModelsService {
@@ -89,5 +90,33 @@ export class ModelsService {
       where: { modelId },
       order: { versionNumber: 'ASC' },
     });
+  }
+
+  async updateModel(
+    id: string,
+    dto: UpdateModelDto,
+    userId: string,
+  ): Promise<ProcessModel> {
+    const model = await this.modelRepo.findOne({
+      where: { id, owner: { id: userId as UUID } },
+    });
+
+    if (!model) throw new NotFoundException('Модель не найдена');
+
+    Object.assign(model, dto);
+
+    return this.modelRepo.save(model);
+  }
+
+  async deleteModel(id: string, userId: string): Promise<{ message: string }> {
+    const model = await this.modelRepo.findOne({
+      where: { id, owner: { id: userId as UUID } },
+    });
+
+    if (!model) throw new NotFoundException('Модель не найдена');
+
+    await this.modelRepo.remove(model);
+
+    return { message: 'Модель успешно удалена' };
   }
 }
