@@ -5,6 +5,8 @@ import { ModelVersion } from '../../entities/model-version.entity';
 import { ProcessModel } from '../../entities/process-model.entity';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { Scenario } from 'src/entities/scenario.entity';
+import { ReportsService } from '../reports/reports.service';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable()
 export class SimulationService {
@@ -15,6 +17,8 @@ export class SimulationService {
     private readonly modelRepo: Repository<ProcessModel>,
     @InjectRepository(Scenario)
     private readonly scenarioRepo: Repository<Scenario>,
+    private readonly analyticsService: AnalyticsService,
+    private readonly reportsService: ReportsService,
   ) {}
 
   async simulate(versionId: string, userId: string) {
@@ -34,14 +38,20 @@ export class SimulationService {
     if ((version as any).isValid === false) {
       throw new ForbiddenException('Версия модели не готова к симуляции');
     }
+    
+    const metrics = this.analyticsService.generateMetrics(version.data);
+
+    const report = await this.reportsService.createReport(
+      version.model.id,
+      version.id,
+      metrics,
+    );
 
     return {
       versionId,
       status: 'ok',
-      metrics: {
-        time: Math.floor(Math.random() * 100),
-        cost: Math.floor(Math.random() * 1000),
-      },
+      reportId: report.id,
+      metrics,
     };
   }
 
