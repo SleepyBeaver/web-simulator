@@ -990,3 +990,102 @@
 {"context":"HTTP","level":"info","message":"\u001b[36mPOST   \u001b[0m /models \u001b[32m201\u001b[0m \u001b[90m  144ms\u001b[0m \u001b[90m243b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-20T15:48:47.733Z"}
 {"context":"HTTP","level":"info","message":"\u001b[36mGET    \u001b[0m /models/29494485-913c-4710-8985-30e77f26b2b3 \u001b[32m200\u001b[0m \u001b[90m   16ms\u001b[0m \u001b[90m372b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-20T15:48:54.635Z"}
 {"context":"HTTP","level":"info","message":"\u001b[36mGET    \u001b[0m /models/7a214afa-e445-4bce-b298-e31aaa51b14e \u001b[32m304\u001b[0m \u001b[90m  144ms\u001b[0m \u001b[90m0b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-20T15:49:10.828Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2026-03-21T10:31:18.170Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:31:18.208Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2026-03-21T10:31:18.216Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2026-03-21T10:31:18.229Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2026-03-21T10:31:18.230Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2026-03-21T10:31:18.232Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2026-03-21T10:31:18.811Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:31:18.813Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:31:18.814Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:31:18.815Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:31:18.816Z"}
+{"context":"InstanceLoader","level":"info","message":"UsersModule dependencies initialized","timestamp":"2026-03-21T10:31:18.820Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2026-03-21T10:31:18.821Z"}
+{"context":"InstanceLoader","level":"info","message":"ModelsModule dependencies initialized","timestamp":"2026-03-21T10:31:18.821Z"}
+{"context":"InstanceLoader","level":"info","message":"SimulationModule dependencies initialized","timestamp":"2026-03-21T10:31:18.822Z"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:","timestamp":"2026-03-21T10:31:18.929Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route","timestamp":"2026-03-21T10:31:18.933Z"}
+{"context":"RoutesResolver","level":"info","message":"UsersController {/users}:","timestamp":"2026-03-21T10:31:18.934Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users, GET} route","timestamp":"2026-03-21T10:31:18.935Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me, GET} route","timestamp":"2026-03-21T10:31:18.937Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, GET} route","timestamp":"2026-03-21T10:31:18.939Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me, PATCH} route","timestamp":"2026-03-21T10:31:18.940Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me/password, PATCH} route","timestamp":"2026-03-21T10:31:18.942Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2026-03-21T10:31:18.942Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2026-03-21T10:31:18.944Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2026-03-21T10:31:18.945Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/logout, POST} route","timestamp":"2026-03-21T10:31:18.947Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2026-03-21T10:31:18.948Z"}
+{"context":"RoutesResolver","level":"info","message":"ModelsController {/models}:","timestamp":"2026-03-21T10:31:18.949Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models, POST} route","timestamp":"2026-03-21T10:31:18.951Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, GET} route","timestamp":"2026-03-21T10:31:18.952Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/versions, POST} route","timestamp":"2026-03-21T10:31:18.954Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/versions, GET} route","timestamp":"2026-03-21T10:31:18.955Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, PATCH} route","timestamp":"2026-03-21T10:31:18.955Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, DELETE} route","timestamp":"2026-03-21T10:31:18.957Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/export/json, GET} route","timestamp":"2026-03-21T10:31:18.958Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/export/xml, GET} route","timestamp":"2026-03-21T10:31:18.958Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/import/json, POST} route","timestamp":"2026-03-21T10:31:18.959Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/import/xml, POST} route","timestamp":"2026-03-21T10:31:18.960Z"}
+{"context":"RoutesResolver","level":"info","message":"SimulationController {/simulation}:","timestamp":"2026-03-21T10:31:18.961Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:versionId, POST} route","timestamp":"2026-03-21T10:31:18.962Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:modelId/scenarios, POST} route","timestamp":"2026-03-21T10:31:18.964Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:modelId/scenarios, GET} route","timestamp":"2026-03-21T10:31:18.964Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2026-03-21T10:31:18.969Z"}
+{"context":"App","level":"info","message":"Сервер запущен: http://localhost:3000","timestamp":"2026-03-21T10:31:18.976Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mGET    \u001b[0m /users \u001b[32m200\u001b[0m \u001b[90m   83ms\u001b[0m \u001b[90m134b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:32:37.684Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2026-03-21T10:34:41.721Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:34:41.754Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2026-03-21T10:34:41.763Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2026-03-21T10:34:41.782Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2026-03-21T10:34:41.783Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2026-03-21T10:34:41.785Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2026-03-21T10:34:42.055Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:34:42.056Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:34:42.057Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:34:42.058Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2026-03-21T10:34:42.059Z"}
+{"context":"InstanceLoader","level":"info","message":"UsersModule dependencies initialized","timestamp":"2026-03-21T10:34:42.063Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2026-03-21T10:34:42.063Z"}
+{"context":"InstanceLoader","level":"info","message":"ModelsModule dependencies initialized","timestamp":"2026-03-21T10:34:42.064Z"}
+{"context":"InstanceLoader","level":"info","message":"SimulationModule dependencies initialized","timestamp":"2026-03-21T10:34:42.065Z"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:","timestamp":"2026-03-21T10:34:42.262Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route","timestamp":"2026-03-21T10:34:42.271Z"}
+{"context":"RoutesResolver","level":"info","message":"UsersController {/users}:","timestamp":"2026-03-21T10:34:42.277Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users, GET} route","timestamp":"2026-03-21T10:34:42.286Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me, GET} route","timestamp":"2026-03-21T10:34:42.289Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, GET} route","timestamp":"2026-03-21T10:34:42.296Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me, PATCH} route","timestamp":"2026-03-21T10:34:42.304Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/me/password, PATCH} route","timestamp":"2026-03-21T10:34:42.307Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2026-03-21T10:34:42.310Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2026-03-21T10:34:42.316Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2026-03-21T10:34:42.318Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/logout, POST} route","timestamp":"2026-03-21T10:34:42.320Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2026-03-21T10:34:42.322Z"}
+{"context":"RoutesResolver","level":"info","message":"ModelsController {/models}:","timestamp":"2026-03-21T10:34:42.323Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models, POST} route","timestamp":"2026-03-21T10:34:42.324Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, GET} route","timestamp":"2026-03-21T10:34:42.326Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/versions, POST} route","timestamp":"2026-03-21T10:34:42.328Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/versions, GET} route","timestamp":"2026-03-21T10:34:42.329Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, PATCH} route","timestamp":"2026-03-21T10:34:42.331Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id, DELETE} route","timestamp":"2026-03-21T10:34:42.333Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/export/json, GET} route","timestamp":"2026-03-21T10:34:42.336Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/:id/export/xml, GET} route","timestamp":"2026-03-21T10:34:42.338Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/import/json, POST} route","timestamp":"2026-03-21T10:34:42.339Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/models/import/xml, POST} route","timestamp":"2026-03-21T10:34:42.341Z"}
+{"context":"RoutesResolver","level":"info","message":"SimulationController {/simulation}:","timestamp":"2026-03-21T10:34:42.342Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:versionId, POST} route","timestamp":"2026-03-21T10:34:42.343Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:modelId/scenarios, POST} route","timestamp":"2026-03-21T10:34:42.346Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/simulation/:modelId/scenarios, GET} route","timestamp":"2026-03-21T10:34:42.347Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2026-03-21T10:34:42.354Z"}
+{"context":"App","level":"info","message":"Сервер запущен: http://localhost:3000","timestamp":"2026-03-21T10:34:42.363Z"}
+{"context":"HTTP","level":"warn","message":"\u001b[36mPOST   \u001b[0m /models \u001b[33m401\u001b[0m \u001b[90m    9ms\u001b[0m \u001b[90m78b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:37:46.898Z"}
+{"context":"AuthService","level":"info","message":"Пользователь успешно вошел в систему. ID: 4e53c66e-2ab7-4bcc-8905-9588c06bcadc, Email: user@example.com","timestamp":"2026-03-21T10:38:12.827Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mPOST   \u001b[0m /auth/login \u001b[32m201\u001b[0m \u001b[90m  344ms\u001b[0m \u001b[90m662b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:12.961Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mPOST   \u001b[0m /models \u001b[32m201\u001b[0m \u001b[90m  159ms\u001b[0m \u001b[90m243b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:29.417Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mPOST   \u001b[0m /simulation/2c8db638-9150-4b7c-b6e1-2de5a3101e27/scenarios \u001b[32m201\u001b[0m \u001b[90m   36ms\u001b[0m \u001b[90m207b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:36.346Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mGET    \u001b[0m /simulation/2c8db638-9150-4b7c-b6e1-2de5a3101e27/scenarios \u001b[32m200\u001b[0m \u001b[90m   22ms\u001b[0m \u001b[90m209b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:44.851Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mPOST   \u001b[0m /simulation/2c8db638-9150-4b7c-b6e1-2de5a3101e27/scenarios \u001b[32m201\u001b[0m \u001b[90m   24ms\u001b[0m \u001b[90m209b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:53.350Z"}
+{"context":"HTTP","level":"info","message":"\u001b[36mGET    \u001b[0m /simulation/2c8db638-9150-4b7c-b6e1-2de5a3101e27/scenarios \u001b[32m200\u001b[0m \u001b[90m   15ms\u001b[0m \u001b[90m419b\u001b[0m - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 YaBrowser/26.3.0.0 Safari/537.36","timestamp":"2026-03-21T10:38:56.765Z"}
